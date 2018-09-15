@@ -15,27 +15,48 @@
             editNote(note) {
                 this.currentNote = note
                 
-                
-                
             },
             
             /*
             * This will create a new note
             */
             newNote() {
-                this.currentNote = {}
+                this.currentNote = {
+                    note: ''
+                }
             },
             
             /*
             * This will save the current note
             */
-            saveNote(note) {
+            async saveNote(note) {
+                console.log('saving')
                 
+                let result = await NoteService.saveNote(note)
+                
+                if (result)
+                    this.getAllNotes()
+            },
+            
+            /*
+            * Delete
+            */
+            async deleteNote(note) {
+                let result = await NoteService.deleteNote(note)
+                
+                if (result) {
+                    console.log('Note deleted')
+                    this.getAllNotes()
+                }
+            },
+            
+            async getAllNotes() {
+                this.notes = await NoteService.getAllNotes()
             }
         },
         
         async mounted() {
-            this.notes = await NoteService.getAllNotes()
+            await this.getAllNotes()
         }
     }
     

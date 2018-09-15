@@ -30,13 +30,6 @@ library.add(
 Vue.component('fa', FontAwesomeIcon)
 
 
-// Tiny MCE Configuration
-tinymce.init({
-  selector: '#tiny',
-  plugins: []
-})
-
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -6,7 +6,7 @@
                 
                 <ul class="list-group">
                     <li @click="editNote(note)" class="list-group-item" v-for="note in notes">
-                        <strong><fa icon="trash"/> {{ note.title }}</strong>
+                        <strong><fa @click="deleteNote(note)" icon="trash"/> {{ note.title }}</strong>
                     </li>
                 </ul>
                 
@@ -24,7 +24,7 @@
                     <editor v-model="currentNote.note"></editor>
                     
                     <br />
-                    <button type="button" @click="saveNote()" class="btn btn-success float-sm-right"><fa icon="save"/> Save Note</button>
+                    <button type="button" @click="saveNote(currentNote)" class="btn btn-success float-sm-right"><fa icon="save"/> Save Note</button>
                     
                 </div>
             </div>

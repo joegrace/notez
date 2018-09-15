@@ -16195,12 +16195,6 @@ window.Vue = __webpack_require__(55);
 __WEBPACK_IMPORTED_MODULE_4__fortawesome_fontawesome_svg_core__["library"].add(__WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["a" /* faCoffee */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["b" /* faSave */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["c" /* faStickyNote */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["d" /* faTrash */]);
 Vue.component('fa', __WEBPACK_IMPORTED_MODULE_6__fortawesome_vue_fontawesome__["FontAwesomeIcon"]);
 
-// Tiny MCE Configuration
-__WEBPACK_IMPORTED_MODULE_2_tinymce_tinymce___default.a.init({
-  selector: '#tiny',
-  plugins: []
-});
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59227,38 +59221,132 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         * This will create a new note
         */
         newNote: function newNote() {
-            this.currentNote = {};
+            this.currentNote = {
+                note: ''
+            };
         },
 
 
         /*
         * This will save the current note
         */
-        saveNote: function saveNote(note) {}
+        saveNote: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(note) {
+                var result;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                console.log('saving');
+
+                                _context.next = 3;
+                                return __WEBPACK_IMPORTED_MODULE_1__services_NoteService__["a" /* default */].saveNote(note);
+
+                            case 3:
+                                result = _context.sent;
+
+
+                                if (result) this.getAllNotes();
+
+                            case 5:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function saveNote(_x) {
+                return _ref.apply(this, arguments);
+            }
+
+            return saveNote;
+        }(),
+
+
+        /*
+        * Delete
+        */
+        deleteNote: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(note) {
+                var result;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                _context2.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1__services_NoteService__["a" /* default */].deleteNote(note);
+
+                            case 2:
+                                result = _context2.sent;
+
+
+                                if (result) {
+                                    console.log('Note deleted');
+                                    this.getAllNotes();
+                                }
+
+                            case 4:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function deleteNote(_x2) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return deleteNote;
+        }(),
+        getAllNotes: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                _context3.next = 2;
+                                return __WEBPACK_IMPORTED_MODULE_1__services_NoteService__["a" /* default */].getAllNotes();
+
+                            case 2:
+                                this.notes = _context3.sent;
+
+                            case 3:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+
+            function getAllNotes() {
+                return _ref3.apply(this, arguments);
+            }
+
+            return getAllNotes;
+        }()
     },
 
     mounted: function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4() {
+            return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
                 while (1) {
-                    switch (_context.prev = _context.next) {
+                    switch (_context4.prev = _context4.next) {
                         case 0:
-                            _context.next = 2;
-                            return __WEBPACK_IMPORTED_MODULE_1__services_NoteService__["a" /* default */].getAllNotes();
+                            _context4.next = 2;
+                            return this.getAllNotes();
 
                         case 2:
-                            this.notes = _context.sent;
-
-                        case 3:
-                        case "end":
-                            return _context.stop();
+                        case 'end':
+                            return _context4.stop();
                     }
                 }
-            }, _callee, this);
+            }, _callee4, this);
         }));
 
         function mounted() {
-            return _ref.apply(this, arguments);
+            return _ref4.apply(this, arguments);
         }
 
         return mounted;
@@ -59289,23 +59377,31 @@ var _class = function () {
         key: 'getAllNotes',
         value: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+                var _this = this;
+
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 return _context.abrupt('return', new Promise(function (resolve, reject) {
                                     setTimeout(function () {
-                                        resolve([{
-                                            note: 'this is a note',
-                                            title: 'one',
-                                            user_id: 1,
-                                            created_at: '2018-08-15'
-                                        }, {
-                                            note: 'this is another note',
-                                            title: 'two',
-                                            user_id: 1,
-                                            created_at: '2018-08-15'
-                                        }]);
+                                        if (_this.notes == undefined) {
+                                            _this.notes = [{
+                                                id: 1,
+                                                note: 'this is a note',
+                                                title: 'one',
+                                                user_id: 1,
+                                                created_at: '2018-08-15'
+                                            }, {
+                                                id: 2,
+                                                note: 'this is another note',
+                                                title: 'two',
+                                                user_id: 1,
+                                                created_at: '2018-08-15'
+                                            }];
+                                        }
+
+                                        resolve(_this.notes);
                                     }, 2000);
                                 }));
 
@@ -59325,7 +59421,70 @@ var _class = function () {
         }()
     }, {
         key: 'deleteNote',
-        value: function deleteNote(note) {}
+        value: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(note) {
+                var _this2 = this;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                return _context2.abrupt('return', new Promise(function (resolve, reject) {
+                                    setTimeout(function () {
+                                        _this2.notes = _this2.notes.filter(function (n) {
+                                            return n.id != note.id;
+                                        });
+                                        console.log(_this2.notes);
+                                        resolve(true);
+                                    }, 2000);
+                                }));
+
+                            case 1:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function deleteNote(_x) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return deleteNote;
+        }()
+    }, {
+        key: 'saveNote',
+        value: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(note) {
+                var _this3 = this;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                return _context3.abrupt('return', new Promise(function (resolve, reject) {
+                                    setTimeout(function () {
+                                        _this3.notes.push(note);
+
+                                        resolve(true);
+                                    }, 2000);
+                                }));
+
+                            case 1:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+
+            function saveNote(_x2) {
+                return _ref3.apply(this, arguments);
+            }
+
+            return saveNote;
+        }()
     }]);
 
     return _class;
@@ -59365,7 +59524,14 @@ var render = function() {
                   _c(
                     "strong",
                     [
-                      _c("fa", { attrs: { icon: "trash" } }),
+                      _c("fa", {
+                        attrs: { icon: "trash" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteNote(note)
+                          }
+                        }
+                      }),
                       _vm._v(" " + _vm._s(note.title))
                     ],
                     1
@@ -59451,7 +59617,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.saveNote()
+                      _vm.saveNote(_vm.currentNote)
                     }
                   }
                 },
