@@ -6,13 +6,20 @@ export default class {
             setTimeout(() => {
                 resolve([
                     {
-                        note_text: 'this is a note',
+                        note: 'this is a note',
+                        title: 'one',
                         user_id: 1,
                         created_at: '2018-08-15'
-                    }    
+                    },
+                    {
+                        note: 'this is another note',
+                        title: 'two',
+                        user_id: 1,
+                        created_at: '2018-08-15'
+                    }
                 ])
             }, 2000) 
-        });
+        })
     }
     
 }

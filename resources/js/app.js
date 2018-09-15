@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import Editor from '@tinymce/tinymce-vue';
 
 // Pages
 import homePageComponent from './components/pages/HomeComponent';
@@ -21,7 +22,7 @@ Vue.use(VueRouter);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('editor', Editor);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 
