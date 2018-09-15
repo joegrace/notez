@@ -2,31 +2,39 @@ import VueRouter from 'vue-router';
 import Editor from '@tinymce/tinymce-vue';
 import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/modern/theme';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee,
+         faSave,
+         faStickyNote,
+         faTrash
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Pages
-import homePageComponent from './components/pages/HomeComponent';
+import homePageComponent from './components/pages/HomeComponent'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-require('./bootstrap');
-window.Vue = require('vue');
+require('./bootstrap')
+window.Vue = require('vue')
 
 
-// TinyMCE Configuration
-// require.context(
-//   'file?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
-//   true,
-//   /.*/
-// );
+// Font awesome configuration
+library.add(
+    faCoffee, faSave, faStickyNote,
+    faTrash
+)
+Vue.component('fa', FontAwesomeIcon)
 
 
+// Tiny MCE Configuration
 tinymce.init({
   selector: '#tiny',
   plugins: []
-});
+})
 
 
 /**

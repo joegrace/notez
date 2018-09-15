@@ -24,15 +24,18 @@
             */
             newNote() {
                 this.currentNote = {}
+            },
+            
+            /*
+            * This will save the current note
+            */
+            saveNote(note) {
+                
             }
         },
         
-        mounted() {
-            // Get all notes
-            NoteService.getAllNotes().then((notes) => {
-                console.log(notes) 
-                this.notes = notes
-            })
+        async mounted() {
+            this.notes = await NoteService.getAllNotes()
         }
     }
     

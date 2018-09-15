@@ -1,7 +1,7 @@
 
 
 export default class {
-    static getAllNotes() {
+    static async getAllNotes() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve([
@@ -20,6 +20,10 @@ export default class {
                 ])
             }, 2000) 
         })
+    }
+    
+    static deleteNote(note) {
+        
     }
     
 }

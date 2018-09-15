@@ -6,7 +6,7 @@
                 
                 <ul class="list-group">
                     <li @click="editNote(note)" class="list-group-item" v-for="note in notes">
-                        <strong>{{ note.title }}</strong>
+                        <strong><fa icon="trash"/> {{ note.title }}</strong>
                     </li>
                 </ul>
                 
@@ -15,14 +15,16 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Note Info 
-                    <button type="button" @click="newNote()" class="btn btn-primary float-sm-right">New Note</button>
+                    <button type="button" @click="newNote()" class="btn btn-primary float-sm-right"><fa icon="sticky-note"/> New Note</button>
                 </div>
 
                 <div class="card-body">
-                    <editor></editor>
-                    <p>{{ currentNote.title }}</p>
-                    <p>{{ currentNote.note }}</p>
+                    <input v-model="currentNote.title" type="text" class="form-control" id="titleText" placeholder="Note Title">
+                    <br />
+                    <editor v-model="currentNote.note"></editor>
                     
+                    <br />
+                    <button type="button" @click="saveNote()" class="btn btn-success float-sm-right"><fa icon="save"/> Save Note</button>
                     
                 </div>
             </div>
