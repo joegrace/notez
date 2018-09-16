@@ -12,14 +12,24 @@ export default class {
                             note: 'this is a note',
                             title: 'one',
                             user_id: 1,
-                            created_at: '2018-08-15'
+                            created_at: '2018-08-15',
+                            updated_at: '2018-08-20',
+                            tags: [
+                                {id: 1, text: 'Work'},
+                                {id: 2, text: 'SQL'}
+                            ]
                         },
                         {
                             id: 2,
                             note: 'this is another note',
                             title: 'two',
                             user_id: 1,
-                            created_at: '2018-08-15'
+                            created_at: '2018-08-15',
+                            updated_at: '2018-08-20',
+                            tags: [
+                                {id: 3, text: 'Golf'},
+                                {id: 4, text: 'Skyrim'}
+                            ]
                         }
                     ]
                 }

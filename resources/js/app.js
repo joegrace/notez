@@ -6,7 +6,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee,
          faSave,
          faStickyNote,
-         faTrash
+         faTrash,
+         faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -25,7 +26,7 @@ window.Vue = require('vue')
 // Font awesome configuration
 library.add(
     faCoffee, faSave, faStickyNote,
-    faTrash
+    faTrash, faTimes
 )
 Vue.component('fa', FontAwesomeIcon)
 

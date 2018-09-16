@@ -16192,7 +16192,7 @@ __webpack_require__(32);
 window.Vue = __webpack_require__(55);
 
 // Font awesome configuration
-__WEBPACK_IMPORTED_MODULE_4__fortawesome_fontawesome_svg_core__["library"].add(__WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["a" /* faCoffee */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["b" /* faSave */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["c" /* faStickyNote */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["d" /* faTrash */]);
+__WEBPACK_IMPORTED_MODULE_4__fortawesome_fontawesome_svg_core__["library"].add(__WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["a" /* faCoffee */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["b" /* faSave */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["c" /* faStickyNote */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["e" /* faTrash */], __WEBPACK_IMPORTED_MODULE_5__fortawesome_free_solid_svg_icons__["d" /* faTimes */]);
 Vue.component('fa', __WEBPACK_IMPORTED_MODULE_6__fortawesome_vue_fontawesome__["FontAwesomeIcon"]);
 
 /**
@@ -56892,7 +56892,7 @@ var modern = (function () {
 /* unused harmony export faThumbsUp */
 /* unused harmony export faThumbtack */
 /* unused harmony export faTicketAlt */
-/* unused harmony export faTimes */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return faTimes; });
 /* unused harmony export faTimesCircle */
 /* unused harmony export faTint */
 /* unused harmony export faTintSlash */
@@ -56908,7 +56908,7 @@ var modern = (function () {
 /* unused harmony export faTrain */
 /* unused harmony export faTransgender */
 /* unused harmony export faTransgenderAlt */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return faTrash; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return faTrash; });
 /* unused harmony export faTrashAlt */
 /* unused harmony export faTree */
 /* unused harmony export faTrophy */
@@ -59206,10 +59206,36 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         return {
             msg: "Hi There!",
             notes: [],
-            currentNote: {}
+            currentNote: {},
+            newTag: '',
+            tagFilter: ''
         };
     },
 
+
+    computed: {
+        notesFilter: function notesFilter() {
+            var component = this;
+
+            if (component.tagFilter == '') {
+                return component.notes;
+            }
+
+            return this.notes.filter(function (note) {
+                var result = false;
+
+                note.tags.forEach(function (t) {
+                    if (t.text.toLowerCase() == component.tagFilter.toLowerCase()) {
+                        result = true;
+                    }
+                });
+
+                if (note.title.toLowerCase() == component.tagFilter.toLowerCase()) result = true;
+
+                return result;
+            });
+        }
+    },
 
     methods: {
         editNote: function editNote(note) {
@@ -59300,6 +59326,28 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
             return deleteNote;
         }(),
+
+
+        /*
+        * Remove a tag from current note
+        */
+        removeTag: function removeTag(note, tag) {
+            console.log('Removing tag: ' + tag.text);
+            var tagIndex = note.tags.indexOf(tag);
+
+            note.tags.splice(tagIndex, 1);
+        },
+
+
+        /*
+        * Add new tag to current note
+        */
+        addTag: function addTag() {
+            if (this.currentNote.tags == undefined) this.currentNote.tags = [];
+
+            this.currentNote.tags.push({ text: this.newTag });
+            this.newTag = '';
+        },
         getAllNotes: function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
@@ -59391,13 +59439,17 @@ var _class = function () {
                                                 note: 'this is a note',
                                                 title: 'one',
                                                 user_id: 1,
-                                                created_at: '2018-08-15'
+                                                created_at: '2018-08-15',
+                                                updated_at: '2018-08-20',
+                                                tags: [{ id: 1, text: 'Work' }, { id: 2, text: 'SQL' }]
                                             }, {
                                                 id: 2,
                                                 note: 'this is another note',
                                                 title: 'two',
                                                 user_id: 1,
-                                                created_at: '2018-08-15'
+                                                created_at: '2018-08-15',
+                                                updated_at: '2018-08-20',
+                                                tags: [{ id: 3, text: 'Golf' }, { id: 4, text: 'Skyrim' }]
                                             }];
                                         }
 
@@ -59504,12 +59556,39 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("Notes List")]),
+          _c("div", { staticClass: "card-header" }, [
+            _c("p", [_vm._v("Notes List")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.tagFilter,
+                  expression: "tagFilter"
+                }
+              ],
+              attrs: {
+                type: "text",
+                id: "tagFilter",
+                placeholder: "Tag Filter"
+              },
+              domProps: { value: _vm.tagFilter },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.tagFilter = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "ul",
             { staticClass: "list-group" },
-            _vm._l(_vm.notes, function(note) {
+            _vm._l(_vm.notesFilter, function(note) {
               return _c(
                 "li",
                 {
@@ -59535,6 +59614,23 @@ var render = function() {
                       _vm._v(" " + _vm._s(note.title))
                     ],
                     1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { attrs: { id: "listTagsList" } },
+                    [
+                      _vm._l(note.tags, function(tag) {
+                        return _c(
+                          "span",
+                          { staticClass: "badge badge-pill badge-success" },
+                          [_vm._v(_vm._s(tag.text))]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c("br")
+                    ],
+                    2
                   )
                 ]
               )
@@ -59570,6 +59666,21 @@ var render = function() {
             "div",
             { staticClass: "card-body" },
             [
+              _vm.currentNote.created_at
+                ? _c("div", { attrs: { id: "dates" } }, [
+                    _vm._v(
+                      "\n                        Created At: " +
+                        _vm._s(_vm.currentNote.created_at) +
+                        " \n                        Updated At: " +
+                        _vm._s(_vm.currentNote.updated_at) +
+                        " "
+                    ),
+                    _c("br")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "titleText" } }, [_vm._v("Title")]),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -59598,7 +59709,71 @@ var render = function() {
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
+              _c("label", { attrs: { for: "newTag" } }, [_vm._v("New Tag")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newTag,
+                    expression: "newTag"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "newTag", type: "text", placeholder: "New Tag" },
+                domProps: { value: _vm.newTag },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    _vm.addTag()
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.newTag = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { attrs: { id: "tagsList" } },
+                [
+                  _vm._l(_vm.currentNote.tags, function(tag) {
+                    return _c(
+                      "span",
+                      { staticClass: "badge badge-pill badge-success" },
+                      [
+                        _vm._v(_vm._s(tag.text) + " "),
+                        _c("fa", {
+                          attrs: { icon: "times" },
+                          on: {
+                            click: function($event) {
+                              _vm.removeTag(_vm.currentNote, tag)
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c("br")
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
               _c("editor", {
+                attrs: { id: "noteEditor" },
                 model: {
                   value: _vm.currentNote.note,
                   callback: function($$v) {
