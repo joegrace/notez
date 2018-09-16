@@ -29,8 +29,8 @@
 
                 <div class="card-body">
                     <div id="dates" v-if="currentNote.created_at">
-                        Created At: {{ currentNote.created_at }} 
-                        Updated At: {{ currentNote.updated_at }} <br />
+                        Created: {{ currentNote.created_at }} <br />
+                        Updated: {{ currentNote.updated_at }} <br />
                     </div>
                     <label for="titleText">Title</label>
                     <input v-model="currentNote.title" type="text" class="form-control" id="titleText" placeholder="Note Title" />

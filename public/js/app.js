@@ -59224,6 +59224,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             return this.notes.filter(function (note) {
                 var result = false;
 
+                if (note.tags == undefined) note.tags = [];
+
                 note.tags.forEach(function (t) {
                     if (t.text.toLowerCase() == component.tagFilter.toLowerCase()) {
                         result = true;
@@ -59350,6 +59352,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         },
         getAllNotes: function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3() {
+                var serviceResult;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                     while (1) {
                         switch (_context3.prev = _context3.next) {
@@ -59358,9 +59361,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 return __WEBPACK_IMPORTED_MODULE_1__services_NoteService__["a" /* default */].getAllNotes();
 
                             case 2:
-                                this.notes = _context3.sent;
+                                serviceResult = _context3.sent;
 
-                            case 3:
+
+                                this.notes = serviceResult;
+
+                            case 4:
                             case 'end':
                                 return _context3.stop();
                         }
@@ -59408,6 +59414,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Api__ = __webpack_require__(67);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -59415,6 +59422,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 var _class = function () {
     function _class() {
@@ -59425,39 +59434,19 @@ var _class = function () {
         key: 'getAllNotes',
         value: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-                var _this = this;
-
+                var api;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                return _context.abrupt('return', new Promise(function (resolve, reject) {
-                                    setTimeout(function () {
-                                        if (_this.notes == undefined) {
-                                            _this.notes = [{
-                                                id: 1,
-                                                note: 'this is a note',
-                                                title: 'one',
-                                                user_id: 1,
-                                                created_at: '2018-08-15',
-                                                updated_at: '2018-08-20',
-                                                tags: [{ id: 1, text: 'Work' }, { id: 2, text: 'SQL' }]
-                                            }, {
-                                                id: 2,
-                                                note: 'this is another note',
-                                                title: 'two',
-                                                user_id: 1,
-                                                created_at: '2018-08-15',
-                                                updated_at: '2018-08-20',
-                                                tags: [{ id: 3, text: 'Golf' }, { id: 4, text: 'Skyrim' }]
-                                            }];
-                                        }
+                                api = new __WEBPACK_IMPORTED_MODULE_1__Api__["a" /* default */]('notes');
+                                _context.next = 3;
+                                return api.get();
 
-                                        resolve(_this.notes);
-                                    }, 2000);
-                                }));
+                            case 3:
+                                return _context.abrupt('return', _context.sent);
 
-                            case 1:
+                            case 4:
                             case 'end':
                                 return _context.stop();
                         }
@@ -59475,7 +59464,7 @@ var _class = function () {
         key: 'deleteNote',
         value: function () {
             var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(note) {
-                var _this2 = this;
+                var _this = this;
 
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
                     while (1) {
@@ -59483,10 +59472,10 @@ var _class = function () {
                             case 0:
                                 return _context2.abrupt('return', new Promise(function (resolve, reject) {
                                     setTimeout(function () {
-                                        _this2.notes = _this2.notes.filter(function (n) {
+                                        _this.notes = _this.notes.filter(function (n) {
                                             return n.id != note.id;
                                         });
-                                        console.log(_this2.notes);
+                                        console.log(_this.notes);
                                         resolve(true);
                                     }, 2000);
                                 }));
@@ -59509,21 +59498,25 @@ var _class = function () {
         key: 'saveNote',
         value: function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(note) {
-                var _this3 = this;
+                var _this2 = this;
 
+                var api;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                     while (1) {
                         switch (_context3.prev = _context3.next) {
                             case 0:
+                                api = new __WEBPACK_IMPORTED_MODULE_1__Api__["a" /* default */]('note');
                                 return _context3.abrupt('return', new Promise(function (resolve, reject) {
                                     setTimeout(function () {
-                                        _this3.notes.push(note);
+                                        api.post('/store', note);
+
+                                        _this2.notes.push(note);
 
                                         resolve(true);
                                     }, 2000);
                                 }));
 
-                            case 1:
+                            case 2:
                             case 'end':
                                 return _context3.stop();
                         }
@@ -59669,9 +59662,13 @@ var render = function() {
               _vm.currentNote.created_at
                 ? _c("div", { attrs: { id: "dates" } }, [
                     _vm._v(
-                      "\n                        Created At: " +
+                      "\n                        Created: " +
                         _vm._s(_vm.currentNote.created_at) +
-                        " \n                        Updated At: " +
+                        " "
+                    ),
+                    _c("br"),
+                    _vm._v(
+                      "\n                        Updated: " +
                         _vm._s(_vm.currentNote.updated_at) +
                         " "
                     ),
@@ -93734,6 +93731,122 @@ if (hadRuntime) {
   (function() { return this })() || Function("return this")()
 );
 
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var _class = function () {
+    function _class(endpointPrefix) {
+        _classCallCheck(this, _class);
+
+        // Everything is in /api/
+        this._prefix = '/api/' + endpointPrefix;
+    }
+
+    _createClass(_class, [{
+        key: 'get',
+        value: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(endpoint) {
+                var result;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                if (endpoint == undefined) endpoint = '';
+
+                                result = void 0;
+                                _context.prev = 2;
+                                _context.next = 5;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get(this._prefix + endpoint);
+
+                            case 5:
+                                result = _context.sent;
+                                _context.next = 11;
+                                break;
+
+                            case 8:
+                                _context.prev = 8;
+                                _context.t0 = _context['catch'](2);
+
+                                console.log('Something happened on post: ' + _context.t0);
+
+                            case 11:
+                                return _context.abrupt('return', result.data);
+
+                            case 12:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this, [[2, 8]]);
+            }));
+
+            function get(_x) {
+                return _ref.apply(this, arguments);
+            }
+
+            return get;
+        }()
+    }, {
+        key: 'post',
+        value: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(endpoint, data) {
+                var result;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                _context2.prev = 0;
+                                _context2.next = 3;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this._prefix + endpoint, data);
+
+                            case 3:
+                                result = _context2.sent;
+                                _context2.next = 9;
+                                break;
+
+                            case 6:
+                                _context2.prev = 6;
+                                _context2.t0 = _context2['catch'](0);
+
+                                console.log('Something happened on post: ' + _context2.t0);
+
+                            case 9:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this, [[0, 6]]);
+            }));
+
+            function post(_x2, _x3) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return post;
+        }()
+    }]);
+
+    return _class;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (_class);
 
 /***/ })
 /******/ ]);

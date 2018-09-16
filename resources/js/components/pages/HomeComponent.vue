@@ -24,6 +24,9 @@
                 return this.notes.filter((note) => {
                     let result = false
                     
+                    if (note.tags == undefined)
+                        note.tags = []
+                    
                     note.tags.forEach((t) => {
                         if (t.text.toLowerCase() == component.tagFilter.toLowerCase()) {
                             result = true
@@ -99,7 +102,9 @@
             },
             
             async getAllNotes() {
-                this.notes = await NoteService.getAllNotes()
+                let serviceResult = await NoteService.getAllNotes()
+                
+                this.notes = serviceResult
             }
         },
         
