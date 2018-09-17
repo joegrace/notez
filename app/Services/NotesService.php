@@ -36,6 +36,8 @@ class NotesService
             $note = $this->notesRepository->get($data['id']);
             $note->fill($data);
             
+            // Now lets find out if we need to add tags.
+            
             $this->notesRepository->save($note);
         }
         
