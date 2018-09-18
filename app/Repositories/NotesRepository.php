@@ -20,11 +20,12 @@ class NotesRepository
     public function save($note)
     {
         $note->save();
+        return $note;
     }
     
     public function delete($note)
     {
-        
+        $note->delete();
     }
     
     /*

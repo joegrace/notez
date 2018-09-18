@@ -23,12 +23,25 @@ export default class {
     }
     
     async post(endpoint, data) {
+        let result;
         
         try {
-            let result = await axios.post(this._prefix + endpoint, data)
+            result = await axios.post(this._prefix + endpoint, data)
         }
         catch (e) {
             console.log('Something happened on post: ' + e)
+        }
+        
+        return result.data;
+    }
+    
+    async delete(endpoint, data) {
+        
+        try {
+            let result = await axios.delete(this._prefix + endpoint, data)
+        }
+        catch (e) {
+            console.log('Something happened on delete: ' + e)
         }
         
         

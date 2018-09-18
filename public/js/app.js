@@ -59232,7 +59232,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     }
                 });
 
-                if (note.title.toLowerCase() == component.tagFilter.toLowerCase()) result = true;
+                var reg = component.tagFilter;
+                var re = new RegExp(reg, 'i');
+
+                if (note.title.match(re)) result = true;
 
                 return result;
             });
@@ -59274,7 +59277,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 result = _context.sent;
 
 
-                                if (result) this.getAllNotes();
+                                if (result.constructor.name == 'Object') {
+                                    console.log("Getting new notes");
+                                    this.getAllNotes();
+                                    this.currentNote = result;
+                                } else {
+                                    console.log("Save result not true: " + result);
+                                }
 
                             case 5:
                             case 'end':
@@ -59309,7 +59318,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 result = _context2.sent;
 
 
-                                if (result) {
+                                if (result == true) {
                                     console.log('Note deleted');
                                     this.getAllNotes();
                                 }
@@ -59463,29 +59472,49 @@ var _class = function () {
     }, {
         key: 'deleteNote',
         value: function () {
-            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(note) {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(note) {
                 var _this = this;
 
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                     while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context3.prev = _context3.next) {
                             case 0:
-                                return _context2.abrupt('return', new Promise(function (resolve, reject) {
-                                    setTimeout(function () {
-                                        _this.notes = _this.notes.filter(function (n) {
-                                            return n.id != note.id;
-                                        });
-                                        console.log(_this.notes);
-                                        resolve(true);
-                                    }, 2000);
-                                }));
+                                return _context3.abrupt('return', new Promise(function () {
+                                    var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(resolve, reject) {
+                                        var api, result;
+                                        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                                            while (1) {
+                                                switch (_context2.prev = _context2.next) {
+                                                    case 0:
+                                                        api = new __WEBPACK_IMPORTED_MODULE_1__Api__["a" /* default */]('note');
+                                                        _context2.next = 3;
+                                                        return api.delete('/' + note.id);
+
+                                                    case 3:
+                                                        result = _context2.sent;
+
+
+                                                        resolve(true);
+
+                                                    case 5:
+                                                    case 'end':
+                                                        return _context2.stop();
+                                                }
+                                            }
+                                        }, _callee2, _this);
+                                    }));
+
+                                    return function (_x2, _x3) {
+                                        return _ref3.apply(this, arguments);
+                                    };
+                                }()));
 
                             case 1:
                             case 'end':
-                                return _context2.stop();
+                                return _context3.stop();
                         }
                     }
-                }, _callee2, this);
+                }, _callee3, this);
             }));
 
             function deleteNote(_x) {
@@ -59497,35 +59526,28 @@ var _class = function () {
     }, {
         key: 'saveNote',
         value: function () {
-            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(note) {
-                var _this2 = this;
-
+            var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(note) {
                 var api;
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
                     while (1) {
-                        switch (_context3.prev = _context3.next) {
+                        switch (_context4.prev = _context4.next) {
                             case 0:
                                 api = new __WEBPACK_IMPORTED_MODULE_1__Api__["a" /* default */]('note');
-                                return _context3.abrupt('return', new Promise(function (resolve, reject) {
-                                    setTimeout(function () {
-                                        api.post('/store', note);
-
-                                        _this2.notes.push(note);
-
-                                        resolve(true);
-                                    }, 2000);
+                                return _context4.abrupt('return', new Promise(function (resolve, reject) {
+                                    var result = api.post('/store', note);
+                                    resolve(result);
                                 }));
 
                             case 2:
                             case 'end':
-                                return _context3.stop();
+                                return _context4.stop();
                         }
                     }
-                }, _callee3, this);
+                }, _callee4, this);
             }));
 
-            function saveNote(_x2) {
-                return _ref3.apply(this, arguments);
+            function saveNote(_x4) {
+                return _ref4.apply(this, arguments);
             }
 
             return saveNote;
@@ -93812,27 +93834,31 @@ var _class = function () {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
-                                _context2.prev = 0;
-                                _context2.next = 3;
+                                result = void 0;
+                                _context2.prev = 1;
+                                _context2.next = 4;
                                 return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post(this._prefix + endpoint, data);
 
-                            case 3:
+                            case 4:
                                 result = _context2.sent;
-                                _context2.next = 9;
+                                _context2.next = 10;
                                 break;
 
-                            case 6:
-                                _context2.prev = 6;
-                                _context2.t0 = _context2['catch'](0);
+                            case 7:
+                                _context2.prev = 7;
+                                _context2.t0 = _context2['catch'](1);
 
                                 console.log('Something happened on post: ' + _context2.t0);
 
-                            case 9:
+                            case 10:
+                                return _context2.abrupt('return', result.data);
+
+                            case 11:
                             case 'end':
                                 return _context2.stop();
                         }
                     }
-                }, _callee2, this, [[0, 6]]);
+                }, _callee2, this, [[1, 7]]);
             }));
 
             function post(_x2, _x3) {
@@ -93840,6 +93866,44 @@ var _class = function () {
             }
 
             return post;
+        }()
+    }, {
+        key: 'delete',
+        value: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(endpoint, data) {
+                var result;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                _context3.prev = 0;
+                                _context3.next = 3;
+                                return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete(this._prefix + endpoint, data);
+
+                            case 3:
+                                result = _context3.sent;
+                                _context3.next = 9;
+                                break;
+
+                            case 6:
+                                _context3.prev = 6;
+                                _context3.t0 = _context3['catch'](0);
+
+                                console.log('Something happened on delete: ' + _context3.t0);
+
+                            case 9:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this, [[0, 6]]);
+            }));
+
+            function _delete(_x4, _x5) {
+                return _ref3.apply(this, arguments);
+            }
+
+            return _delete;
         }()
     }]);
 

@@ -11,6 +11,8 @@ class Note extends Model
     
     protected $fillable = ['note', 'title'];
     
+    protected $with = ['tags'];
+    
     
     public function user() 
     {

@@ -38,36 +38,52 @@ class NotesService
             // Get the current note
             $note = $this->notesRepository->get($data['id']);
             $note->fill($data);
-            
-            // Now lets find out if we need to add tags.
-            $tagsToAssociate = [];
-            if (isset($data['tags'])) {
-                foreach ($data['tags'] as $tag) {
-                    if (!isset($tag['id'])) {
-                        // Create the new tag
-                        $t = new Tag();
-                        $t->text = $tag['text'];
-                        
-                        $this->tagsRepository->save($t);
-                        array_push($tagsToAssociate, $t->id);
-                    } else {
-                        // Get this tag by id and push
-                        $t = $this->tagsRepository->get($tag['id']);
-                        
-                        if ($t == null) {
-                            throw new \Exception("Could not find passed tag id");
-                        }
-                        
-                        array_push($tagsToAssociate, $t->id);
-                    }
-                }
-                
-                // Now sync these
-                $note->tags()->sync($tagsToAssociate);
-            }
-            
-            $this->notesRepository->save($note);
         }
+            
+        // Now lets find out if we need to add tags.
+        $tagsToAssociate = [];
+        if (isset($data['tags'])) {
+            foreach ($data['tags'] as $tag) {
+                if (!isset($tag['id'])) {
+                    // Create the new tag
+                    $t = new Tag();
+                    $t->text = $tag['text'];
+                    
+                    $this->tagsRepository->save($t);
+                    array_push($tagsToAssociate, $t->id);
+                } else {
+                    // Get this tag by id and push
+                    $t = $this->tagsRepository->get($tag['id']);
+                    
+                    if ($t == null) {
+                        throw new \Exception("Could not find passed tag id");
+                    }
+                    
+                    array_push($tagsToAssociate, $t->id);
+                }
+            }
+                
+            // Now sync these
+            $note->tags()->sync($tagsToAssociate);
+        
+            
+        }
+        $savedNote = $this->notesRepository->save($note);
+        $savedNote = $this->notesRepository->get($savedNote->id);
+        
+        return $savedNote;
+    }
+    
+    public function deleteById($id)
+    {
+        $note = $this->notesRepository->get($id);
+        
+        if ($note == null) {
+            throw new \Exception('Entity not found');
+        }
+        
+        $this->notesRepository->delete($note);
+
         
     }
     

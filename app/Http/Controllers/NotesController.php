@@ -21,7 +21,9 @@ class NotesController extends Controller
     {
         $data = $request->json()->all();
         
-        $this->notesService->createOrSave($data);
+        $savedNote = $this->notesService->createOrSave($data);
+        
+        return $savedNote;
     }
     
     public function getAll(Request $request)
@@ -30,6 +32,11 @@ class NotesController extends Controller
         $notes = $this->notesRepository->getByUser($user->id);
         
         return $notes;
+    }
+    
+    public function deleteNote(Request $request, $id)
+    {
+        $this->notesService->deleteById($id);
     }
     
 }

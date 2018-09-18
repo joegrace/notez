@@ -33,7 +33,10 @@
                         }
                     })
                     
-                    if (note.title.toLowerCase() == component.tagFilter.toLowerCase())
+                    let reg = component.tagFilter
+                    let re = new RegExp(reg, 'i');
+                    
+                    if (note.title.match(re))
                         result = true
                     
                     return result
@@ -64,8 +67,13 @@
                 
                 let result = await NoteService.saveNote(note)
                 
-                if (result)
+                if (result.constructor.name == 'Object') {
+                    console.log("Getting new notes");
                     this.getAllNotes()
+                    this.currentNote = result;
+                } else {
+                    console.log("Save result not true: " + result);
+                }
             },
             
             /*
@@ -74,7 +82,7 @@
             async deleteNote(note) {
                 let result = await NoteService.deleteNote(note)
                 
-                if (result) {
+                if (result == true) {
                     console.log('Note deleted')
                     this.getAllNotes()
                 }
