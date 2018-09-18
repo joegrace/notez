@@ -1,7 +1,9 @@
 import VueRouter from 'vue-router';
+
 import Editor from '@tinymce/tinymce-vue';
 import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/modern/theme';
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee,
          faSave,
@@ -10,6 +12,9 @@ import { faCoffee,
          faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { loadProgressBar } from 'axios-progress-bar'
+import 'axios-progress-bar/dist/nprogress.css'
 
 // Pages
 import homePageComponent from './components/pages/HomeComponent'
@@ -21,7 +26,7 @@ import homePageComponent from './components/pages/HomeComponent'
  */
 require('./bootstrap')
 window.Vue = require('vue')
-
+loadProgressBar()
 
 // Font awesome configuration
 library.add(
