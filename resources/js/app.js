@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
+import Vuelidate from 'vuelidate'
 
 // Pages
 import homePageComponent from './components/pages/HomeComponent'
@@ -42,6 +43,7 @@ Vue.component('fa', FontAwesomeIcon)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.use(VueRouter);
+Vue.use(Vuelidate);
 Vue.component('editor', Editor);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
