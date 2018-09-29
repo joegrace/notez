@@ -33,7 +33,10 @@ class NotesRepository
     */
     public function getByUser($userId)
     {
-        $notes = Note::where('user_id', $userId)->with('tags')->get();
+        $notes = Note::where('user_id', $userId)
+            ->with('tags')
+            ->orderBy('created_at', 'desc')
+            ->get();
         
         return $notes;
     }
