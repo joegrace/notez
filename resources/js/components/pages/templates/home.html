@@ -4,27 +4,29 @@
             <div class="card">
                 <div class="card-header">
                     <p>Notes List</p>
-                    
-                    
+
+
                     <input v-model="tagFilter" type="text" id="tagFilter" placeholder="Tag Filter" />
                 </div>
-                
+
                 <ul class="list-group">
                     <li @click="editNote(note)" class="list-group-item" v-for="note in notesFilter">
-                        <strong><fa @click="deleteNote(note)" icon="trash"/> {{ note.title }}</strong>
+                        <strong>
+                            <fa @click="deleteNote(note)" icon="trash" /> {{ note.title }}</strong>
                         <div id="listTagsList">
                             <span class="badge badge-pill badge-success" v-for="tag in note.tags">{{ tag.text }}</span>
-                        <br />
-                    </div>
+                            <br />
+                        </div>
                     </li>
                 </ul>
-                
+
             </div>
         </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Note Info 
-                    <button type="button" @click="newNote()" class="btn btn-primary float-sm-right"><fa icon="sticky-note"/> New Note</button>
+                <div class="card-header">Note Info
+                    <button type="button" @click="newNote()" class="btn btn-primary float-sm-right">
+                        <fa icon="sticky-note" /> New Note</button>
                 </div>
 
                 <div class="card-body">
@@ -32,26 +34,30 @@
                         Created: {{ currentNote.created_at }} <br />
                         Updated: {{ currentNote.updated_at }} <br />
                     </div>
-                    <label for="titleText">Title</label>
-                    <input v-model="currentNote.title" type="text" class="form-control" id="titleText" placeholder="Note Title" />
-                    <br />
-                    <label for="newTag">New Tag</label>
-                    <input @keyup.enter="addTag()" v-model="newTag" id="newTag" type="text" class="form-control" placeholder="New Tag"/>
-                    <div id="tagsList">
-                        <span class="badge badge-pill badge-success" v-for="tag in currentNote.tags">{{ tag.text }} <fa @click="removeTag(currentNote, tag)" icon="times"/></span>
+                    <div id="form">
+                        <label for="titleText">Title</label>
+                        <input v-model="currentNote.title" type="text" class="form-control" id="titleText" placeholder="Note Title" />
                         <br />
+                        <label for="newTag">New Tag</label>
+                        <input @keyup.enter="addTag()" v-model="newTag" id="newTag" type="text" class="form-control"
+                            placeholder="New Tag" />
+                        <div id="tagsList">
+                            <span class="badge badge-pill badge-success" v-for="tag in currentNote.tags">{{ tag.text }}
+                                <fa @click="removeTag(currentNote, tag)" icon="times" /></span>
+                            <br />
+                        </div>
+                        <br />
+                        <editor id="noteEditor" v-model="currentNote.note"></editor>
                     </div>
                     <br />
-                    <editor id="noteEditor" v-model="currentNote.note"></editor>
-                    
-                    <br />
-                    <button type="button" @click="saveNote(currentNote)" class="btn btn-success float-sm-right"><fa icon="save"/> Save Note</button>
-                    
+                    <button type="button" @click="saveNote(currentNote)" class="btn btn-success float-sm-right">
+                        <fa icon="save" /> Save Note</button>
+
                 </div>
             </div>
         </div>
     </div>
-    
-    
-    
+
+
+
 </div>
