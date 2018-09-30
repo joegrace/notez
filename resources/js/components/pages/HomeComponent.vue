@@ -118,15 +118,8 @@ import { clearInterval } from 'timers';
                 
                 this.notes = serviceResult
             },
-            
-        },
-        
-        async mounted() {
-            let component = this
-            await component.getAllNotes()
 
-            // Check for dirty note and save every 5s.
-            component.$options.noteSaveInterval = setInterval(async () => {
+            async checkForSave(component) {
                 // We only want to auto-save notes that have been saved
                 // at least once
                 if (component.currentNote.id == undefined)
@@ -138,9 +131,16 @@ import { clearInterval } from 'timers';
                     await component.saveNote(component.currentNote)
                     component.currentNote.dirty = false
                 } 
-            }, 15000)
+            }
+            
+        },
+        
+        async mounted() {
+            let component = this
+            await component.getAllNotes()
 
-
+            // Check for dirty note and save every 5s.
+            component.$options.noteSaveInterval = setInterval(() => component.checkForSave(component), 5000)
         },
 
         /*
