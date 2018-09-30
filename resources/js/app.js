@@ -15,10 +15,16 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { loadProgressBar } from 'axios-progress-bar'
 import 'axios-progress-bar/dist/nprogress.css'
+
 import Vuelidate from 'vuelidate'
+
+import { Modal } from 'bootstrap-vue/es/components';
 
 // Pages
 import homePageComponent from './components/pages/HomeComponent'
+
+// Modals
+import exportModalComponent from './components/modals/ExportModalComponent'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -44,7 +50,10 @@ Vue.component('fa', FontAwesomeIcon)
  */
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
+Vue.use(Modal);
+
 Vue.component('editor', Editor);
+Vue.component('exportModal', exportModalComponent);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 
@@ -58,5 +67,12 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+
+    methods: {
+      exportNotesClick() {
+        this.$emit('bv::show::modal','exportModal')
+      }
+    }
+
 });
