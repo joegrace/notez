@@ -37,6 +37,8 @@ class NotesController extends Controller
     public function deleteNote(Request $request, $id)
     {
         $this->notesService->deleteById($id);
+
+        return ['deleted' => true];
     }
     
 }

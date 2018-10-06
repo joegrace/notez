@@ -10,22 +10,19 @@ export default class {
     }
     
     static async deleteNote(note) {
-        return new Promise(async (resolve, reject) => {
-            let api = new Api('note')
-            
-            let result = await api.delete('/' + note.id)
-            
-            resolve(true);
-        })
+        let api = new Api('note')
+        
+        let result = await api.delete('/' + note.id)      
+        
+        return result
     }
     
     static async saveNote(note) {
         let api = new Api('note')
         
-        return new Promise((resolve, reject) => {
-            let result = api.post('/store', note)
-            resolve(result)
-        })
+        let result = api.post('/store', note)
+
+        return result
     }
 
     static async exportNotes() {

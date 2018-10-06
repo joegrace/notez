@@ -85,10 +85,15 @@ import { clearInterval } from 'timers';
             */
             async deleteNote(note) {
                 let result = await NoteService.deleteNote(note)
-                
-                if (result == true) {
+                console.log("delete result is : " + result)
+
+                if (result.deleted == true) {
                     console.log('Note deleted')
                     this.getAllNotes()
+
+                    // When we click the delete note button, we also change the
+                    // currentNote by effect, so reset currentNote.
+                    this.newNote();
                 }
             },
             

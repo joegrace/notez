@@ -36,15 +36,16 @@ export default class {
     }
     
     async delete(endpoint, data) {
+        let result;
         
         try {
-            let result = await axios.delete(this._prefix + endpoint, data)
+            result = await axios.delete(this._prefix + endpoint, data)
         }
         catch (e) {
             console.log('Something happened on delete: ' + e)
         }
         
-        
+        return result.data;
     }
     
 }
