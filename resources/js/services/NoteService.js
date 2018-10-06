@@ -27,5 +27,17 @@ export default class {
             resolve(result)
         })
     }
+
+    static async exportNotes() {
+        let notes = await this.getAllNotes()
+        
+        // Now lets send the notes as a file download
+        const url = window.URL.createObjectURL(new Blob([JSON.stringify(notes)]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'notezExport.json');
+        document.body.appendChild(link);
+        link.click();
+    }
     
 }

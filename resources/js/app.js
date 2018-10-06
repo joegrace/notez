@@ -9,7 +9,8 @@ import { faCoffee,
          faSave,
          faStickyNote,
          faTrash,
-         faTimes
+         faTimes,
+         faCog
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -38,7 +39,7 @@ loadProgressBar()
 // Font awesome configuration
 library.add(
     faCoffee, faSave, faStickyNote,
-    faTrash, faTimes
+    faTrash, faTimes, faCog
 )
 Vue.component('fa', FontAwesomeIcon)
 
@@ -67,12 +68,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    router,
-
-    methods: {
-      exportNotesClick() {
-        this.$emit('bv::show::modal','exportModal')
-      }
-    }
+    router
 
 });

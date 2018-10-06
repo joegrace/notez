@@ -38,7 +38,7 @@
                                 File
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#" @click="exportNotesClick">Export Notes</a>
+                                    <a class="dropdown-item" href="#" @click="$emit('bv::show::modal','exportModal')">Export Notes</a>
                             </div>
                         </li>
                     </ul>

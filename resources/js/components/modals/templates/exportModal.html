@@ -1,6 +1,9 @@
 <div>
-  <b-modal id="exportModal" @ok="ok">
+  <b-modal id="exportModal" @ok="startExport">
     <p>Export your notes!</p>
     <p>Pressing the OK button bellow will start an export. This may take a while.</p>
+    <div slot="modal-ok">
+      <fa v-if="loading" icon="cog" spin></fa>Download
+    </div>
   </b-modal>
 </div>
