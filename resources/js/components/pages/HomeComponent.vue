@@ -1,6 +1,7 @@
 <template src='./templates/home.html'></template><script>
     import NoteService from '../../services/NoteService'
-import { clearInterval } from 'timers';
+    import { clearInterval } from 'timers';
+    import Alert from '../../services/Alert.js'
     
     
     export default {
@@ -84,10 +85,18 @@ import { clearInterval } from 'timers';
             * Delete
             */
             async deleteNote(note) {
+                // Lets make sure the user actually wants to delete 
+                // this note!
+                let confirmResult = await Alert.confirm('Are you sure you want to delete this?',
+                    'Are you sure you want to delete this note? This can not be undone currently.');
+
+                if (confirmResult === false)
+                    return;
+
                 let result = await NoteService.deleteNote(note)
                 console.log("delete result is : " + result)
 
-                if (result.deleted == true) {
+                if (result.deleted === true) {
                     console.log('Note deleted')
                     this.getAllNotes()
 

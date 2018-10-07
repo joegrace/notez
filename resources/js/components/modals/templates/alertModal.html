@@ -1,0 +1,23 @@
+<div id="alertModal">
+
+
+  <b-modal id="alertModal"
+    centered
+    :header-bg-variant="headerVariant()">
+      <div id="alertModalHeader"slot="modal-header">
+        {{ title }}
+      </div>
+
+      {{ message }}
+      <div slot="modal-footer" v-if="modalType == 'alert'">
+        <button class="btn btn-primary" @click="closeAlert" variant="primary">Close</button>
+      </div>
+
+      <div slot="modal-footer" v-if="modalType == 'confirm'">
+          <button class="btn btn-danger" @click="confirmNo" variant="primary">No</button>
+          <button class="btn btn-success" @click="confirmYes" variant="primary">Yes</button>
+      </div>
+
+  </b-modal>
+
+</div>

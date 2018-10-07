@@ -26,6 +26,7 @@ import homePageComponent from './components/pages/HomeComponent'
 
 // Modals
 import exportModalComponent from './components/modals/ExportModalComponent'
+import alertComponent from './components/modals/AlertComponent'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -55,6 +56,7 @@ Vue.use(Modal);
 
 Vue.component('editor', Editor);
 Vue.component('exportModal', exportModalComponent);
+Vue.component('alertModal', alertComponent);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 
@@ -68,6 +70,16 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    data() {
+      return {
+        alertModalMessage: '',
+        alertModalTitle: '',
+        alertModalHeaderVariant: '',
+        alertModalType: '',
+        alertModalConfirmLastValue: ''
+      }
+    }
 
 });
+window.VueRoot = app;
