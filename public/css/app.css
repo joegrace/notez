@@ -10481,3 +10481,7 @@ a.text-dark:focus {
   height: 400px;
 }
 
+#titleText {
+  width: 50%;
+}
+

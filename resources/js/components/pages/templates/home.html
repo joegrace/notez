@@ -24,20 +24,14 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Note Info
+                <div class="card-header">
+                    <input v-model="currentNote.title" type="text" class="form-control float-sm-left" id="titleText" placeholder="Note Title" />
                     <button type="button" @click="newNote()" class="btn btn-primary float-sm-right">
                         <fa icon="sticky-note" /> New Note</button>
                 </div>
 
                 <div class="card-body">
-                    <div id="dates" v-if="currentNote.created_at">
-                        Created: {{ currentNote.created_at }} <br />
-                        Updated: {{ currentNote.updated_at }} <br />
-                    </div>
                     <div id="form">
-                        <label for="titleText">Title</label>
-                        <input v-model="currentNote.title" type="text" class="form-control" id="titleText" placeholder="Note Title" />
-                        <br />
                         <label for="newTag">New Tag</label>
                         <input @keyup.enter="addTag()" v-model="newTag" id="newTag" type="text" class="form-control"
                             placeholder="New Tag" />
@@ -50,6 +44,10 @@
                         <editor id="noteEditor" v-model="currentNote.note"></editor>
                     </div>
                     <br />
+                    <div id="dates" v-if="currentNote.created_at">
+                            C: {{ currentNote.created_at }} |
+                            U: {{ currentNote.updated_at }} 
+                    </div>
                     <button type="button" @click="saveNote(currentNote)" class="btn btn-success float-sm-right">
                         <fa icon="save" /> Save Note</button>
 
