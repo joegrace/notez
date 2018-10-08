@@ -33,6 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @if(Auth::check())
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 File
@@ -41,6 +42,7 @@
                                     <a class="dropdown-item" href="#" @click="$emit('bv::show::modal','exportModal')">Export Notes</a>
                             </div>
                         </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
