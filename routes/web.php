@@ -24,4 +24,5 @@ Route::prefix('api')->group(function() {
     Route::get('/notes', 'NotesController@getAll');
     Route::post('/note/store', 'NotesController@store');
     Route::delete('/note/{id}', 'NotesController@deleteNote');
+    Route::post('/user/changePassword', 'UserController@changePassword');
 });

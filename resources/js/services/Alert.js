@@ -31,6 +31,16 @@ export default class {
         })
     }
     
+    static notify(title, msg) {
+        // Set the alert to the root vue component and emit
+        // the open modal bootstrap event
+        VueRoot.alertModalType = 'notify'
+        VueRoot.alertModalMessage = msg
+        VueRoot.alertModalTitle = title || 'Alert'
+        VueRoot.alertModalHeaderVariant = 'info'
+
+        VueRoot.$emit('bv::show::modal','alertModal')
+    }
 
 
 }

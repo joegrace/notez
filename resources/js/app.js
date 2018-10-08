@@ -19,7 +19,11 @@ import 'axios-progress-bar/dist/nprogress.css'
 
 import Vuelidate from 'vuelidate'
 
-import { Modal } from 'bootstrap-vue/es/components';
+import { Modal, 
+        FormGroup, 
+        FormInput, 
+        Alert,
+        Button } from 'bootstrap-vue/es/components';
 
 // Pages
 import homePageComponent from './components/pages/HomeComponent'
@@ -27,6 +31,7 @@ import homePageComponent from './components/pages/HomeComponent'
 // Modals
 import exportModalComponent from './components/modals/ExportModalComponent'
 import alertComponent from './components/modals/AlertComponent'
+import changePasswordModalComponent from './components/modals/ChangePasswordModalComponent'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -53,10 +58,15 @@ Vue.component('fa', FontAwesomeIcon)
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
 Vue.use(Modal);
+Vue.use(FormGroup);
+Vue.use(FormInput);
+Vue.use(Alert);
+Vue.use(Button);
 
 Vue.component('editor', Editor);
 Vue.component('exportModal', exportModalComponent);
 Vue.component('alertModal', alertComponent);
+Vue.component('changePasswordModal', changePasswordModalComponent);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 

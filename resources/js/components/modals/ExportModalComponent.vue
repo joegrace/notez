@@ -5,24 +5,28 @@ export default {
     data() {
         return {
             loading: false
-        };
+        }
     },
 
     methods: {
         async startExport(bvEvt) {
-        this.loading = true;
+            this.loading = true
 
-        // Don't close this modal by default
-        bvEvt.preventDefault();
+            // Don't close this modal by default
+            bvEvt.preventDefault()
 
-        // Start the export process
-        let result = await NotesService.exportNotes();
+            // Start the export process
+            let result = await NotesService.exportNotes()
 
-        // Close the modal
-        this.$root.$emit("bv::hide::modal", "exportModal");
+            // Close the modal
+            this.$root.$emit("bv::hide::modal", "exportModal")
 
-        this.loading = false;
+            this.loading = false
         }
     }
 };
+
+
+
+
 </script>

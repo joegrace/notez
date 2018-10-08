@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <alert-modal></alert-modal>
+    <change-password-modal></change-password-modal>
     <export-modal></export-modal>
     <router-view></router-view>
-    
 </div>
 @endsection
