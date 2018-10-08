@@ -16,9 +16,9 @@ export default class {
         // Eww.... I really wish I didn't have to create a new promise here,
         // but since vm.$watch takes a callback in it's second parameter, I
         // was not sure how to return a value from the async function from
-        // inside an array function. Still looking into this, cause this has
+        // inside an arraw function. Still looking into this, cause this has
         // some code smell.
-        
+
         return new Promise((resolve, reject) => {
             VueRoot.alertModalType = 'confirm'
             VueRoot.alertModalMessage = msg
