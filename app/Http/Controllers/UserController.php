@@ -7,6 +7,7 @@ use App\Services\UserService;
 
 class UserController extends Controller
 {
+    /** @var UserService */
     private $userService;
 
     function __construct(UserService $userService) 
@@ -23,7 +24,6 @@ class UserController extends Controller
             $data['password'], 
             $data['passwordConfirm']
         );
-
 
         return $response;
     }
