@@ -8,6 +8,7 @@ use App\User;
 
 class UserService 
 {
+    /** @var UserRepository */
     private $userRepository;
 
     function __construct(UserRepository $userRepository) 
