@@ -16,7 +16,14 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-
+    /**
+     * changes the password for the given user
+     * @param User $user User to change password on
+     * @param String $password New Password
+     * @param String $passwordConfirm Password confirmation field
+     * 
+     * @return ServiceResponse Service Response
+     */
     public function changePassword(User $user, $password, $passwordConfirm)
     {
         $errors = [];
