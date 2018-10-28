@@ -41,7 +41,7 @@
                             <br />
                         </div>
                         <br />
-                        <editor id="noteEditor" v-model="currentNote.note"></editor>
+                        <editor id="noteEditor" plugins="lists advlist" v-model="currentNote.note"></editor>
                     </div>
                     <br />
                     <div id="dates" v-if="currentNote.created_at">

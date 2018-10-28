@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import Editor from '@tinymce/tinymce-vue';
 import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/modern/theme';
+import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/lists';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee,
