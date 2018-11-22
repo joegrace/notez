@@ -8,6 +8,9 @@ export default class {
         this._prefix = '/api/' + endpointPrefix
         this._comErrorTitle = 'Fatal Error!'
         this._comerrorMessage = 'We\'re sorry, we were not able to perform that request. Please try again later.'
+
+        // Axios interceptor for 500 handling
+        this.error400Interceptor();
     }
     
     async get(endpoint) {
@@ -58,4 +61,16 @@ export default class {
         Alert.alert(this._comErrorTitle, this._comerrorMessage)
     }
     
+    error400Interceptor() {
+        axios.interceptors.response.use(function (response) {
+            return response;
+          }, function (error) {
+            if (error.response.status === 400) {
+                Alert.alert('Note Error', error.response.data.noteError)
+            }
+
+            return;
+          });
+        
+    }
 }

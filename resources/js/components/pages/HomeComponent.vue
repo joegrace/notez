@@ -76,6 +76,8 @@
                     }
 
                     this.currentNote.dirty = false;
+
+                    return result;
                 } else {
                     console.log("Save result not true: " + result);
                 }
@@ -142,8 +144,9 @@
                 if (component.currentNote.dirty != undefined && component.currentNote.dirty === true) {
                     // Form is dirty, save.
                     console.log("Saving dirty note")
-                    await component.saveNote(component.currentNote)
+                    let note = await component.saveNote(component.currentNote)
                     component.currentNote.dirty = false
+                    component.currentNote.updated_at = note.updated_at
                 } 
             }
             

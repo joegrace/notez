@@ -7,6 +7,8 @@ use App\Repositories\NotesRepository;
 use App\Repositories\TagsRepository;
 use App\Note;
 use App\Tag;
+use Carbon\Carbon;
+use App\Exceptions\NoteNewerOnServerException;
 
 class NotesService 
 {
@@ -38,6 +40,21 @@ class NotesService
             // Get the current note
             $note = $this->notesRepository->get($data['id']);
             $note->fill($data);
+
+            // We need to check if the note's updated_at is greater than
+            // the date on the passed data. If it is, then we do not want
+            // to save this note becase we may be overwriting another save.
+            if (isset($data['updated_at'])) {
+                $dateFormat = 'Y-m-d H:i:s';
+                $passedUpdatedDate = Carbon::createFromFormat($dateFormat, $data['updated_at']);
+                
+                \Log::info('Passed Date: ' . $passedUpdatedDate);
+                \Log::info('DB Update date: ' . $note->updated_at);
+
+                if ($note->updated_at->greaterThan($passedUpdatedDate)) {
+                    throw new NoteNewerOnServerException("Cannot save this note. Database copy is newer. DB: {$note->updated_at}. Passed: {$passedUpdatedDate}");
+                }
+            }
         }
             
         // Now lets find out if we need to add tags.
