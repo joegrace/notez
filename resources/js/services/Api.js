@@ -69,7 +69,7 @@ export default class {
                 Alert.alert('Note Error', error.response.data.noteError)
             }
 
-            return;
+            return Promise.reject(error);
           });
         
     }
